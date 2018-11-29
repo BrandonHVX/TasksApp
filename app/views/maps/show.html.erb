@@ -1,0 +1,8 @@
+<p>
+  You are calling from
+  <span id="long"><%= @coordinates.first %></span>,
+  <span id="lat"><%= @coordinates.last %></span>
+</p>
+
+<%= react_component 'Map',
+    props: { coordinates: @coordinates, centerOnUser: true } %>

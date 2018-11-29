@@ -1,0 +1,18 @@
+<% if @completed %>
+  <h1>Completed Tasks</h1>
+<% else %>
+  <h1>Pending Tasks</h1>
+<% end %>
+
+<%= react_component 'Tasks',
+    props: {
+      completed:  @completed,
+      term:       @term,
+      page:       @page,
+      totalPages: @total_pages
+    } %>
+
+<% unless @completed %>
+  <hr>
+  <%= render 'form', task: @task %>
+<% end %>

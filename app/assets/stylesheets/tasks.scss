@@ -1,0 +1,9 @@
+// Place all the styles related to the tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+input[type=checkbox].form-control:focus {
+  border-color: transparent;
+  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent;
+  outline: 0 none;
+}

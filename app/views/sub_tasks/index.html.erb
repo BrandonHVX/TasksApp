@@ -1,0 +1,37 @@
+<h1><%= @task.description %></h1>
+
+<table class="table">
+  <thead>
+    <th>Description</th>
+    <th colspan="2"></th>
+  </thead>
+  <tbody>
+    <% @task.sub_tasks.each do |sub_task| %>
+      <tr>
+        <td>
+          <% if sub_task.completed %>
+            <s><%= sub_task.description %></s>
+          <% else %>
+            <%= sub_task.description %>
+          <% end %>
+        </td>
+        <td><%= render 'completed_form', sub_task: sub_task %></td>
+        <td><%= link_to 'Destroy', sub_task, method: :delete, class: "btn btn-danger float-right", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<%= render 'form', task: @task, sub_task: @sub_task %>
+
+<hr>
+
+<% if @task.has_location? %>
+  <%= react_component 'Map',
+      props: {
+        coordinates: [@task.longitude, @task.latitude],
+        centerOnUser: false
+      } %>
+<% end %>

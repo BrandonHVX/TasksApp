@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th colspan="2"></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.description, task_sub_tasks_path(task) %></td>
+        <td><%= render 'completed_form', task: task %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, class: "btn btn-danger float-right", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate tasks %>

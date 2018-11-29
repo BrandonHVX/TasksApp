@@ -1,0 +1,4 @@
+<%= form_with(model: sub_task, local: true) do |form| %>
+  <%= form.hidden_field :completed, value: !sub_task.completed %>
+  <%= form.submit sub_task.completed ? "Mark Incomplete" : "Mark Complete", class: "btn btn-secondary float-right" %>
+<% end %>

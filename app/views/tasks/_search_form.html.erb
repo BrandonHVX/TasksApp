@@ -1,0 +1,9 @@
+<%= form_with(url: tasks_path, method: :get, local: true) do |form| %>
+  <div class = "form-group">
+    <%= form.hidden_field :completed, value: params[:completed] %>
+    <%= form.search_field :term,
+        class: 'form-control',
+        placeholder: 'Search',
+        value: params[:term] %>
+  </div>
+<% end %>

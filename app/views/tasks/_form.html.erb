@@ -1,0 +1,82 @@
+<%= form_with(model: task, local: true) do |form| %>
+
+  <div class="row">
+    <div class="form-group col-md-8">
+      <%= form.label :description %>
+      <%= form.text_field :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= form.label :due_date %>
+      <%= form.date_field :due_date, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= form.label :latitude %>
+      <%= form.text_field :latitude, class: "form-control", readonly: true %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= form.label :longitude %>
+      <%= form.text_field :longitude, class: "form-control", readonly: true %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= form.label :use_current_location %>
+      <%= form.check_box :use_current_location, class: "form-control", disabled: true %>
+    </div>
+  </div>
+
+  <div class="row" id="address">
+    <div class="form-group col-md-4">
+      <%= form.label :street %>
+      <%= form.text_field :street, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-3">
+      <%= form.label :city %>
+      <%= form.text_field :city, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-1">
+      <%= form.label :state %>
+      <%= form.text_field :state, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= form.label :country %>
+      <%= form.text_field :country, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $('#task_use_current_location').on('click', function(){
+    $('#address').toggle();
+  })
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      // success callback
+      (position) => {
+        coordinates = [
+                        position.coords.longitude,
+                        position.coords.latitude
+                      ];
+        document.getElementById("task_longitude").value = coordinates[0];
+        document.getElementById("task_latitude").value = coordinates[1];
+        document.getElementById("task_use_current_location").disabled = false;
+      },
+      // failure callback
+      () => { console.log('Could not get location') },
+      // options
+      {
+        enableHighAccuracy: true,
+        maximumAge        : 30000,
+        timeout           : 27000
+      }
+    );
+  }
+</script>
